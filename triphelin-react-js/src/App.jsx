@@ -1,17 +1,41 @@
 import "./App.css";
 import Superhero from "./components/Superheros.jsx/Superhero/Superhero";
 import Superheros from "./components/Superheros.jsx/Superheros";
-import { useState } from "react";
+import { useRef, useState } from "react";
 export default function App() {
   const [superheroPrefere, setSuperheroPrefere] = useState();
   const [nomDuSuperhero, setNomDuSuperhero] = useState("Anonyme");
   const [descriptionDuSuperhero, setDescriptionDuSuperhero] = useState(
     "Pas de description pour l'instant"
   );
-  const [photoDuSuperhero, setPhotoDuSuperhero] = useState("git");
+  const [ajoutNouveauSuperhero, setAjoutNouveauSuperhero] = useState({
+    nom: "",
+    description: "",
+    photo: "",
+  });
+
+  const [photoDuSuperhero, setPhotoDuSuperhero] = useState("");
+  // Variables de références
+  const nom = useRef();
+  const description = useRef();
+  const photo = useRef();
 
   const superheroClique = (nom) => {
     setSuperheroPrefere(nom);
+  };
+  const sauvegadeSuperhero = () => {
+    setAjoutNouveauSuperhero((ancienSuperhero) => ({
+      ...ancienSuperhero,
+      nom: nom.current.value,
+    }));
+    setAjoutNouveauSuperhero((ancienSuperhero) => ({
+      ...ancienSuperhero,
+      description: description.current.value,
+    }));
+    setAjoutNouveauSuperhero((ancienSuperhero) => ({
+      ...ancienSuperhero,
+      photo: photo.current.value,
+    }));
   };
   return (
     <main>
@@ -66,11 +90,17 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
           photo="./captain.webp"
         />
         <Superhero
-          nom={nomDuSuperhero}
+          nom={ajoutNouveauSuperhero.description}
           description={
-            descriptionDuSuperhero != "" ? descriptionDuSuperhero : undefined
+            ajoutNouveauSuperhero.description != ""
+              ? ajoutNouveauSuperhero.description
+              : undefined
           }
-          photo={photoDuSuperhero != "" ? photoDuSuperhero : undefined}
+          photo={
+            ajoutNouveauSuperhero.photo != ""
+              ? ajoutNouveauSuperhero.photo
+              : undefined
+          }
         />
         {/**Paramétrage */}
         <div
@@ -87,8 +117,7 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
               type="text"
               name="photo"
               id="photo"
-              value={photoDuSuperhero}
-              onChange={(event) => setPhotoDuSuperhero(event.target.value)}
+              ref={photo}
               style={{
                 padding: 5,
                 fontSize: 14,
@@ -104,8 +133,7 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
               type="text"
               name="nom"
               id="nom"
-              value={nomDuSuperhero}
-              onChange={(event) => setNomDuSuperhero(event.target.value)}
+              ref={nom}
               style={{
                 padding: 5,
                 fontSize: 14,
@@ -118,10 +146,7 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
               type="text"
               name="description"
               id="description"
-              value={descriptionDuSuperhero}
-              onChange={(event) =>
-                setDescriptionDuSuperhero(event.target.value)
-              }
+              ref={description}
               style={{
                 padding: 5,
                 fontSize: 14,
@@ -129,6 +154,15 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
                 width: "100%",
               }}
             />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              marginTop: 15,
+            }}
+          >
+            <button onClick={sauvegadeSuperhero}>Modifier</button>
           </div>
         </div>
       </Superheros>
