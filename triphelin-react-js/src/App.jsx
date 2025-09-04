@@ -1,20 +1,38 @@
 import "./App.css";
 import Superhero from "./components/Superheros.jsx/Superhero/Superhero";
 import Superheros from "./components/Superheros.jsx/Superheros";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 export default function App() {
   const [superheroPrefere, setSuperheroPrefere] = useState();
+  {
+    /*
   const [nomDuSuperhero, setNomDuSuperhero] = useState("Anonyme");
   const [descriptionDuSuperhero, setDescriptionDuSuperhero] = useState(
     "Pas de description pour l'instant"
-  );
+  )*/
+  }
   const [ajoutNouveauSuperhero, setAjoutNouveauSuperhero] = useState({
-    nom: "",
+    nom: "Anonyme",
     description: "",
     photo: "",
   });
+  //cycle de vie du composant
+  useEffect(() => {
+    photo.current.focus();
+  }, [
+    ajoutNouveauSuperhero.nom,
+    ajoutNouveauSuperhero.description,
+    ajoutNouveauSuperhero.photo,
+  ]);
+  useEffect(() => {
+    nom.current.value = "";
+    description.current.value = "";
+    photo.current.value = "";
+  }, [ajoutNouveauSuperhero.nom]);
 
-  const [photoDuSuperhero, setPhotoDuSuperhero] = useState("");
+  {
+    /*<const [photoDuSuperhero, setPhotoDuSuperhero] = useState("");>*/
+  }
   // Variables de références
   const nom = useRef();
   const description = useRef();
@@ -90,7 +108,11 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
           photo="./captain.webp"
         />
         <Superhero
-          nom={ajoutNouveauSuperhero.description}
+          nom={
+            ajoutNouveauSuperhero.nom != ""
+              ? ajoutNouveauSuperhero.nom
+              : undefined
+          }
           description={
             ajoutNouveauSuperhero.description != ""
               ? ajoutNouveauSuperhero.description
