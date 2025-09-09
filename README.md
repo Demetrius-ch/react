@@ -1,6 +1,7 @@
-[!NOTE]
+> [!NOTE]
+> 
 Ce qu'il faut savoir pour créer ce **Marvel**\
-- React niveau debutant -> intermédiaire\
+- React niveau debutant -> intermédiaire
 - Toutes les notes dans <ins>**notes.md**</ins>\
 - [!IMPORTANT]\
 - Prérequis : HTML, CSS, Javascript, Tailwindcss
