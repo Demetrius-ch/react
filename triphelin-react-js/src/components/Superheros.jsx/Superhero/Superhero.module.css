@@ -2,7 +2,7 @@
   background-color: #f1f1f1;
   padding: 17px;
 }
-.superhero h2 {
+:global(h2) {
   text-align: center;
 }
 .superhero img {
@@ -13,16 +13,10 @@
   height: 10vw;
   object-fit: cover;
 }
-.readmore {
-  display: inline-block;
-  font-weight: bold;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
+
 .readmore:hover {
   color: #ed1d24;
 }
-.superheroPrefere{
+.superheroPrefere {
   background-color: #fde8e9;
-
 }

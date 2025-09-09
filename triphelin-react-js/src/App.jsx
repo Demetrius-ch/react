@@ -2,6 +2,7 @@ import "./App.css";
 import Superhero from "./components/Superheros.jsx/Superhero/Superhero";
 import Superheros from "./components/Superheros.jsx/Superheros";
 import { useEffect, useRef, useState } from "react";
+
 export default function App() {
   const [superheroPrefere, setSuperheroPrefere] = useState();
   {
@@ -41,7 +42,8 @@ export default function App() {
   const superheroClique = (nom) => {
     setSuperheroPrefere(nom);
   };
-  const sauvegadeSuperhero = () => {
+  const sauvegadeSuperhero = (e) => {
+    e.preventDefault();
     setAjoutNouveauSuperhero((ancienSuperhero) => ({
       ...ancienSuperhero,
       nom: nom.current.value,
@@ -55,9 +57,14 @@ export default function App() {
       photo: photo.current.value,
     }));
   };
+ 
   return (
     <main>
-      <h1>Marvel</h1>
+      <img
+        className="w-28 mx-auto mt-10"
+        src="https://cdn.displate.com/artwork/380x270/2023-02-20/8b72d6683a9e691f64df0a7928ce27f0_2efd0733c7ccef2c9d4435ca5c068501.jpg"
+        alt="Logo de Marvel"
+      />
       <Superheros>
         {/**Superhero numéro 1 */}
         <Superhero
@@ -124,16 +131,12 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
               : undefined
           }
         />
+
         {/**Paramétrage */}
-        <div
-          style={{
-            border: "1px solid black",
-            padding: "15px",
-          }}
-        >
-          <h3 style={{ textAlign: "center" }}>Crée ton propre superhero</h3>{" "}
+        <form className="p-[15px] bg-[#ed171e] text-white">
+          <h3 className="text-center uppercase font-semibold my-5">Crée ton propre superhero</h3>{" "}
           <div style={{ marginTop: 15 }}>
-            <label htmlFor="photo">Photo</label>
+            <label htmlFor="photo" className="label">Photo</label>
 
             <input
               type="text"
@@ -146,10 +149,11 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
                 display: "block",
                 width: "100%",
               }}
+              className="input"
             />
           </div>
           <div style={{ marginTop: 15 }}>
-            <label htmlFor="nom">Nom</label>
+            <label htmlFor="nom" className="label">Nom</label>
 
             <input
               type="text"
@@ -162,8 +166,9 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
                 display: "block",
                 width: "100%",
               }}
+              className="input"
             />
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description" className="label">Description</label>
             <input
               type="text"
               name="description"
@@ -175,6 +180,7 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
                 display: "block",
                 width: "100%",
               }}
+              className="input"
             />
           </div>
           <div
@@ -183,10 +189,11 @@ Après avoir paru dans plus de dix mille histoires, Captain America est l'un des
               justifyContent: "end",
               marginTop: 15,
             }}
+            onClick={(event) =>sauvegadeSuperhero(event)}
           >
-            <button onClick={sauvegadeSuperhero}>Modifier</button>
+            <button className="bg-red-900 text-white px-3 py-1 rounded mt-5 hover:bg-red-400 duration-150">Modifier</button>
           </div>
-        </div>
+        </form>
       </Superheros>
     </main>
   );

@@ -1,5 +1,5 @@
-import "./Superhero.css";
-import { useState } from "react";
+import classes from "./Superhero.module.css";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 export default function Superhero({
   nom,
@@ -19,10 +19,18 @@ export default function Superhero({
     evenement.stopPropagation();
     setAfficherModale(true);
   };
+  useEffect(() => {
+    if(affficherModale){
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+  }, [affficherModale]);
 
   return (
     <div
-      className={`superhero ${prefere && "superheroPrefere"}`}
+      className={`${classes.superhero} ${prefere && classes.SuperheroPrefere}`}
       onClick={() => superheroClique(nom)}
       style={{ position: "relative" }}
     >
@@ -58,11 +66,14 @@ export default function Superhero({
         )}
       <img src={photo} alt={`${nom} photo`} />
 
-      <h2 onClick={(evenement) => nomClique(evenement)}>{nom}</h2>
+      <h2 onClick={(evenement) => nomClique(evenement)} className="text-3xl">
+        {nom}
+      </h2>
       <p>{description}</p>
       {/**Details */}
+
       <div
-        className="readmore"
+        className={`inline-block  mb-2.5 ${montrerLesDetails && "text-blue-950"}  hover:text-[#ed1d24] cursor-pointer`}
         onClick={(evenement) => {
           evenement.stopPropagation();
           setMontrerLesDetails((statePrecedent) => !statePrecedent);
